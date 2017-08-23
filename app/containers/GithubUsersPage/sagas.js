@@ -60,7 +60,7 @@ const query = `query {
 */
 function request(method, url) {
   return superagent(method, url)
-    .set('Authorization', 'Bearer 4f9ab11fc909326168068216a1d6a8cd99da99fc');
+    .set('Authorization', 'Bearer ');
 }
 
 // Individual exports for testing
