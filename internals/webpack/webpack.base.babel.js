@@ -58,11 +58,6 @@ module.exports = (options) => ({
       query: {
         limit: 10000,
       },
-    },
-    {
-      test: /\.scss$/,
-      exclude: /node_modules/,
-      loaders: ['style', 'css', 'sass']
     }],
   },
   plugins: options.plugins.concat([
