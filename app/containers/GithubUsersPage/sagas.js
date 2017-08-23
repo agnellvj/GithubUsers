@@ -13,33 +13,30 @@ const query = `query {
       edges {
         node {
           name
+          id
           avatarUrl
-          bio
           createdAt
           email
           location
-          contributedRepositories(first: 1) {
+          contributedRepositories(first: 20) {
             edges {
               node {
+                id
                 name
               }
             }
           }
-          organizations(first: 1) {
+          organizations(first: 10) {
             edges {
               node {
+                id
                 name
               }
             }
           }
-          pullRequests(first:1) {
+          repositories(first: 20) {
             nodes {
-              title
-              url
-            }
-          }
-          repositories(first: 1) {
-            nodes {
+              id
               name
               url
             }
@@ -50,13 +47,21 @@ const query = `query {
   }
 }`;
 
-//2aadccc3bc62e73fc6b78b9a4afa8ce9a641a866
-
+/*
+  Scopes for personal token access for graphQL:
+  repo:status
+  repo_deployment
+  public_repo
+  read:org
+  read:public_key
+  read:repo_hook
+  user
+  read:gpg_key
+*/
 function request(method, url) {
   return superagent(method, url)
     .set('Authorization', 'Bearer 2aadccc3bc62e73fc6b78b9a4afa8ce9a641a866');
 }
-
 
 // Individual exports for testing
 export function* defaultSaga() {

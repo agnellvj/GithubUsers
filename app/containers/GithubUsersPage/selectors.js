@@ -13,6 +13,15 @@ const makeSelectAllGithubUsers = () => createSelector(
   (substate) => substate.getIn(['organization', 'members', 'edges'], null)
 )
 
+const makeSelectedUser = () => createSelector(
+  selectGithubUsersPageDomain(),
+  (substate) => substate.get('selectedUser')
+)
+
+const makeIsFetching = () => createSelector(
+  selectGithubUsersPageDomain(),
+  (substate) => substate.get('isFetching')
+)
 /**
  * Default selector used by GithubUsersPage
  */
@@ -25,5 +34,7 @@ const makeSelectGithubUsersPage = () => createSelector(
 export default makeSelectGithubUsersPage;
 export {
   selectGithubUsersPageDomain,
-  makeSelectAllGithubUsers
+  makeSelectAllGithubUsers,
+  makeSelectedUser,
+  makeIsFetching
 };
