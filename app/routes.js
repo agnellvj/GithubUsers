@@ -19,15 +19,19 @@ export default function createRoutes(store) {
   return [
     {
       path: '/',
-      name: 'home',
+      name: 'github',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          import('containers/HomePage'),
+          import('containers/GithubUsersPage/reducer'),
+          import('containers/GithubUsersPage/sagas'),
+          import('containers/GithubUsersPage'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([component]) => {
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('github', reducer.default);
+          injectSagas(sagas.default); // Inject the saga
           renderRoute(component);
         });
 
