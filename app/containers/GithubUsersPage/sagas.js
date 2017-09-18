@@ -2,14 +2,14 @@ import superagent from 'superagent';
 import { call, put } from 'redux-saga/effects';
 
 import {
-  GITHUB_USERS_REQUEST,
-  GITHUB_USERS_SUCCESS,
-  GITHUB_USERS_FAILURE
-} from './constants';
+  loadGithubData,
+  loadedGithubData,
+  loadGithubDataError
+} from './actions';
 
 const query = `query {
-  organization(login: "code42") {
-    members(first: 100) {
+  organization(login: "dojo4") {
+    members(first: 10) {
       edges {
         node {
           name
@@ -66,17 +66,15 @@ function request(method, url) {
 // Individual exports for testing
 export function* defaultSaga() {
   try {
-    yield put({ type: GITHUB_USERS_REQUEST });
+    yield put(loadGithubData);
 
     const req = request('POST', 'https://api.github.com/graphql')
       .send({ query: query });
     const apiResponse = yield req;
-    yield put({
-      type: GITHUB_USERS_SUCCESS,
-      payload: apiResponse.body.data,
-    });
+
+    yield put(loadedGithubData(apiResponse.body.data));
   } catch(error) {
-    yield put({ type: GITHUB_USERS_FAILURE, error });
+    yield put(loadGithubDataError(error));
   }}
 
 // All sagas to be loaded
