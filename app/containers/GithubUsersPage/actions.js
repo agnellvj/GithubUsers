@@ -26,3 +26,22 @@ export function setSelectedUser(id) {
     id
   };
 }
+
+export function loadGithubData() {
+  return {
+    type: GITHUB_USERS_SUCCESS
+  }
+}
+
+export function loadedGithubData(payload) {
+  return {
+    type: GITHUB_USERS_SUCCESS,
+    payload
+  }
+}
+export function loadGithubDataError(error) {
+  return {
+    type: GITHUB_USERS_FAILURE,
+    error
+  }
+}
